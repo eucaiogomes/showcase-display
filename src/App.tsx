@@ -51,7 +51,9 @@ import {
   MoreHorizontal,
   Send,
   ShoppingBag,
-  ChevronDown
+  ChevronDown,
+  UserPlus,
+  UserCheck
 } from 'lucide-react';
 import heroYoungProfessional from './assets/hero-young-professional.jpg';
 import logoLector from './assets/logo-lector.svg';
@@ -522,6 +524,11 @@ const SocialView = () => {
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
   const [expandedComments, setExpandedComments] = useState<number[]>([]);
   const [commentInputs, setCommentInputs] = useState<Record<number, string>>({});
+  const [connections, setConnections] = useState<number[]>([2]);
+
+  const toggleConnection = (userId: number) => {
+    setConnections(prev => prev.includes(userId) ? prev.filter(id => id !== userId) : [...prev, userId]);
+  };
 
   const toggleLike = (id: number) => {
     if (likedPosts.includes(id)) {
@@ -604,10 +611,12 @@ const SocialView = () => {
     setCommentInputs({ ...commentInputs, [postId]: '' });
   };
 
-  const birthdays = [
-    { name: 'Abrahão Soares', role: 'MDR ACCOUNT', avatar: 'https://ui-avatars.com/api/?name=Abrahão+Soares&background=E0E7FF&color=4338CA' },
-    { name: 'Ana Barbosa de Lima', role: 'RECURSOS HUMANOS', avatar: 'https://ui-avatars.com/api/?name=Ana+Barbosa&background=ECFCCB&color=4D7C0F' },
+  const allBirthdays = [
+    { userId: 2, name: 'Patrick', role: 'ENGENHARIA DE SOFTWARE', avatar: users[1].avatar, day: 'Quarta' },
+    { userId: 3, name: 'Carla', role: 'MARKETING', avatar: users[2].avatar, day: 'Sexta' },
+    { userId: 4, name: 'Serginho', role: 'VENDAS', avatar: users[3].avatar, day: 'Sábado' },
   ];
+  const birthdays = allBirthdays.filter(b => connections.includes(b.userId));
 
   return (
     <div className="min-h-[calc(100vh-64px)] bg-[#F7F9FC] relative">
@@ -690,26 +699,32 @@ const SocialView = () => {
               <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
                 <Gift className="w-4 h-4 text-orange-500" />
               </div>
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#041433]">Aniversariantes do mês</h3>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#041433]">Aniversariantes da semana</h3>
             </div>
-            <div className="space-y-3">
-              {birthdays.map((bday, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <img src={bday.avatar} alt={bday.name} className="w-8 h-8 rounded-full" />
-                    <div>
-                      <h4 className="text-xs font-bold text-slate-800 leading-tight">{bday.name}</h4>
-                      <p className="text-[9px] uppercase font-bold text-slate-400 tracking-wider">{bday.role}</p>
+            {birthdays.length === 0 ? (
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Conecte-se com colegas para acompanhar os aniversários da semana por aqui.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {birthdays.map((bday, i) => (
+                  <div key={i} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <img src={bday.avatar} alt={bday.name} className="w-8 h-8 rounded-full" />
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-800 leading-tight">{bday.name}</h4>
+                        <p className="text-[9px] uppercase font-bold text-slate-400 tracking-wider">{bday.role} • {bday.day}</p>
+                      </div>
                     </div>
+                    <Tooltip content="Enviar Mensagem">
+                      <button className="text-slate-400 hover:text-orange-500 p-1.5 hover:bg-orange-500/10 rounded-lg transition-colors">
+                        <MessageSquare className="w-3.5 h-3.5" />
+                      </button>
+                    </Tooltip>
                   </div>
-                  <Tooltip content="Enviar Mensagem">
-                    <button className="text-slate-400 hover:text-orange-500 p-1.5 hover:bg-orange-500/10 rounded-lg transition-colors">
-                      <MessageSquare className="w-3.5 h-3.5" />
-                    </button>
-                  </Tooltip>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -753,11 +768,29 @@ const SocialView = () => {
                       <p className="text-xs text-slate-400">{post.time} • {post.user.role}</p>
                     </div>
                   </div>
-                  <Tooltip content="Mais Opções">
-                    <button className="text-slate-400 hover:bg-slate-100 p-2 rounded-full transition-colors">
-                      <MoreHorizontal className="w-5 h-5" />
-                    </button>
-                  </Tooltip>
+                  <div className="flex items-center gap-2">
+                    {post.user.id !== 1 && (
+                      <button
+                        onClick={() => toggleConnection(post.user.id)}
+                        className={`flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border transition-all ${
+                          connections.includes(post.user.id)
+                            ? 'border-slate-200 text-slate-500 bg-slate-50 hover:bg-slate-100'
+                            : 'border-orange-500 text-orange-600 bg-orange-500/5 hover:bg-orange-500 hover:text-white'
+                        }`}
+                      >
+                        {connections.includes(post.user.id) ? (
+                          <><UserCheck className="w-3.5 h-3.5" /> Conectado</>
+                        ) : (
+                          <><UserPlus className="w-3.5 h-3.5" /> Conectar</>
+                        )}
+                      </button>
+                    )}
+                    <Tooltip content="Mais Opções">
+                      <button className="text-slate-400 hover:bg-slate-100 p-2 rounded-full transition-colors">
+                        <MoreHorizontal className="w-5 h-5" />
+                      </button>
+                    </Tooltip>
+                  </div>
                 </div>
 
                 {/* Corpo do Post */}

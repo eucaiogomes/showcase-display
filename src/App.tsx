@@ -699,26 +699,32 @@ const SocialView = () => {
               <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
                 <Gift className="w-4 h-4 text-orange-500" />
               </div>
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#041433]">Aniversariantes do mês</h3>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#041433]">Aniversariantes da semana</h3>
             </div>
-            <div className="space-y-3">
-              {birthdays.map((bday, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <img src={bday.avatar} alt={bday.name} className="w-8 h-8 rounded-full" />
-                    <div>
-                      <h4 className="text-xs font-bold text-slate-800 leading-tight">{bday.name}</h4>
-                      <p className="text-[9px] uppercase font-bold text-slate-400 tracking-wider">{bday.role}</p>
+            {birthdays.length === 0 ? (
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Conecte-se com colegas para acompanhar os aniversários da semana por aqui.
+              </p>
+            ) : (
+              <div className="space-y-3">
+                {birthdays.map((bday, i) => (
+                  <div key={i} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <img src={bday.avatar} alt={bday.name} className="w-8 h-8 rounded-full" />
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-800 leading-tight">{bday.name}</h4>
+                        <p className="text-[9px] uppercase font-bold text-slate-400 tracking-wider">{bday.role} • {bday.day}</p>
+                      </div>
                     </div>
+                    <Tooltip content="Enviar Mensagem">
+                      <button className="text-slate-400 hover:text-orange-500 p-1.5 hover:bg-orange-500/10 rounded-lg transition-colors">
+                        <MessageSquare className="w-3.5 h-3.5" />
+                      </button>
+                    </Tooltip>
                   </div>
-                  <Tooltip content="Enviar Mensagem">
-                    <button className="text-slate-400 hover:text-orange-500 p-1.5 hover:bg-orange-500/10 rounded-lg transition-colors">
-                      <MessageSquare className="w-3.5 h-3.5" />
-                    </button>
-                  </Tooltip>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

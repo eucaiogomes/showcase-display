@@ -51,7 +51,9 @@ import {
   MoreHorizontal,
   Send,
   ShoppingBag,
-  ChevronDown
+  ChevronDown,
+  UserPlus,
+  UserCheck
 } from 'lucide-react';
 import heroYoungProfessional from './assets/hero-young-professional.jpg';
 import logoLector from './assets/logo-lector.svg';

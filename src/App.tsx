@@ -768,12 +768,29 @@ const SocialView = () => {
                       <p className="text-xs text-slate-400">{post.time} • {post.user.role}</p>
                     </div>
                   </div>
-                  <Tooltip content="Mais Opções">
-                    <button className="text-slate-400 hover:bg-slate-100 p-2 rounded-full transition-colors">
-                      <MoreHorizontal className="w-5 h-5" />
-                    </button>
-                  </Tooltip>
-                </div>
+                  <div className="flex items-center gap-2">
+                    {post.user.id !== 1 && (
+                      <button
+                        onClick={() => toggleConnection(post.user.id)}
+                        className={`flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border transition-all ${
+                          connections.includes(post.user.id)
+                            ? 'border-slate-200 text-slate-500 bg-slate-50 hover:bg-slate-100'
+                            : 'border-orange-500 text-orange-600 bg-orange-500/5 hover:bg-orange-500 hover:text-white'
+                        }`}
+                      >
+                        {connections.includes(post.user.id) ? (
+                          <><UserCheck className="w-3.5 h-3.5" /> Conectado</>
+                        ) : (
+                          <><UserPlus className="w-3.5 h-3.5" /> Conectar</>
+                        )}
+                      </button>
+                    )}
+                    <Tooltip content="Mais Opções">
+                      <button className="text-slate-400 hover:bg-slate-100 p-2 rounded-full transition-colors">
+                        <MoreHorizontal className="w-5 h-5" />
+                      </button>
+                    </Tooltip>
+                  </div>
 
                 {/* Corpo do Post */}
                 <div className="p-5 pt-2">

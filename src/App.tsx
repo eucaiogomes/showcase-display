@@ -611,10 +611,12 @@ const SocialView = () => {
     setCommentInputs({ ...commentInputs, [postId]: '' });
   };
 
-  const birthdays = [
-    { name: 'Abrahão Soares', role: 'MDR ACCOUNT', avatar: 'https://ui-avatars.com/api/?name=Abrahão+Soares&background=E0E7FF&color=4338CA' },
-    { name: 'Ana Barbosa de Lima', role: 'RECURSOS HUMANOS', avatar: 'https://ui-avatars.com/api/?name=Ana+Barbosa&background=ECFCCB&color=4D7C0F' },
+  const allBirthdays = [
+    { userId: 2, name: 'Patrick', role: 'ENGENHARIA DE SOFTWARE', avatar: users[1].avatar, day: 'Quarta' },
+    { userId: 3, name: 'Carla', role: 'MARKETING', avatar: users[2].avatar, day: 'Sexta' },
+    { userId: 4, name: 'Serginho', role: 'VENDAS', avatar: users[3].avatar, day: 'Sábado' },
   ];
+  const birthdays = allBirthdays.filter(b => connections.includes(b.userId));
 
   return (
     <div className="min-h-[calc(100vh-64px)] bg-[#F7F9FC] relative">

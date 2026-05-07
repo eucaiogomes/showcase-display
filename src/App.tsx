@@ -791,6 +791,7 @@ const SocialView = () => {
                       </button>
                     </Tooltip>
                   </div>
+                </div>
 
                 {/* Corpo do Post */}
                 <div className="p-5 pt-2">

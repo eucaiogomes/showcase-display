@@ -610,240 +610,252 @@ const SocialView = () => {
   ];
 
   return (
-    <div className="bg-gray-100 min-h-[calc(100vh-64px)] py-8 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="flex flex-col lg:flex-row gap-8">
-          
-          {/* LEFT COLUMN: WIDGETS */}
-          <div className="w-full lg:w-80 flex-shrink-0 space-y-6">
-            
-            {/* Widget: Destaques */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div className="flex border-b border-gray-100">
-                <button className="flex-1 py-3 text-sm font-bold text-brand-primary border-b-2 border-brand-primary">Destaques</button>
-                <button className="flex-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-600">Grupos</button>
-              </div>
-              <div className="p-4 space-y-4">
-                {users.map(user => (
-                  <div 
-                    key={user.id} 
-                    className="flex items-center gap-3 cursor-pointer p-2 -mx-2 hover:bg-gray-50 rounded-lg transition-colors"
-                    onClick={() => setActiveProfile(user)}
-                  >
-                    <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full shadow-sm" />
-                    <div>
-                      <h4 className="text-sm font-bold text-gray-800">{user.name}</h4>
-                      <p className="text-xs text-gray-500">{user.role}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+    <div className="min-h-[calc(100vh-64px)] bg-[#F7F9FC] relative">
+      {/* HERO institucional Lector */}
+      <div
+        className="relative overflow-hidden border-b border-white/10"
+        style={{ background: 'var(--gradient-hero)' }}
+      >
+        <div className="absolute inset-0 orbit-pattern opacity-60 pointer-events-none" />
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex items-center gap-2 text-orange-500 text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
+            <span className="w-8 h-px bg-orange-500" />
+            Comunidade Lector
+          </div>
+          <h1 className="font-display text-3xl sm:text-4xl font-bold text-white leading-tight">
+            Social <span className="text-gradient-orange">corporativo</span>
+          </h1>
+          <p className="text-white/70 text-sm mt-3 max-w-xl">
+            Compartilhe novidades, celebre conquistas e mantenha-se conectado com o time.
+          </p>
+        </div>
+      </div>
 
-            {/* Widget: Aniversariantes */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div className="bg-brand-primary/5 p-4 border-b border-brand-primary/10 flex items-center gap-2">
-                <Gift className="text-brand-primary w-5 h-5" />
-                <h3 className="font-bold text-brand-primary">Aniversariantes do mês</h3>
-              </div>
-              <div className="p-4 space-y-4">
-                {birthdays.map((bday, i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <img src={bday.avatar} alt={bday.name} className="w-10 h-10 rounded-full shadow-sm" />
-                      <div>
-                        <h4 className="text-sm font-bold text-gray-800">{bday.name}</h4>
-                        <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wider limit-lines-1">{bday.role}</p>
-                      </div>
-                    </div>
-                    <Tooltip content="Enviar Mensagem">
-                      <button className="text-gray-400 hover:text-brand-primary p-2 hover:bg-brand-primary/10 rounded-full transition-colors">
-                        <MessageSquare className="w-4 h-4" />
-                      </button>
-                    </Tooltip>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* FEED CENTRAL */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 -mt-6 relative z-10">
 
+        {/* CRIAR POST BOX */}
+        <div className="bg-white rounded-2xl shadow-[var(--shadow-subtle)] border border-slate-100 p-5 mb-8">
+          <div className="flex gap-3 mb-4">
+            <img src={users[0].avatar} alt="Seu Perfil" className="w-11 h-11 rounded-full ring-2 ring-orange-500/20" />
+            <input
+              type="text"
+              placeholder="Compartilhe algo com a rede..."
+              className="flex-grow bg-slate-50 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all"
+            />
+          </div>
+          <div className="flex items-center justify-between pt-3 border-t border-slate-100">
+            <div className="flex gap-1">
+              <Tooltip content="Anexar Imagem" direction="top">
+                <button className="p-2 text-slate-400 hover:text-orange-500 hover:bg-orange-500/10 rounded-lg transition-colors">
+                  <Camera className="w-5 h-5" />
+                </button>
+              </Tooltip>
+              <Tooltip content="Anexar Arquivo" direction="top">
+                <button className="p-2 text-slate-400 hover:text-orange-500 hover:bg-orange-500/10 rounded-lg transition-colors">
+                  <Paperclip className="w-5 h-5" />
+                </button>
+              </Tooltip>
+            </div>
+            <button className="btn-primary !py-2 !px-6 !text-sm">
+              Publicar
+            </button>
+          </div>
+        </div>
+
+        {/* DESTAQUES + ANIVERSARIANTES horizontal */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-[var(--shadow-subtle)] p-5">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#041433]">Destaques da semana</h3>
+              <span className="text-[10px] text-slate-400 uppercase tracking-wider">{users.length} pessoas</span>
+            </div>
+            <div className="flex -space-x-2 mb-3">
+              {users.map(u => (
+                <img
+                  key={u.id}
+                  src={u.avatar}
+                  alt={u.name}
+                  onClick={() => setActiveProfile(u)}
+                  className="w-10 h-10 rounded-full ring-2 ring-white cursor-pointer hover:scale-110 hover:z-10 transition-transform"
+                  title={u.name}
+                />
+              ))}
+            </div>
+            <p className="text-xs text-slate-500">Conheça quem tem se destacado nas conversas.</p>
           </div>
 
-          {/* CENTER COLUMN: FEED */}
-          <div className="flex-grow max-w-2xl w-full mx-auto space-y-6">
-            
-            {/* CRIAR POST BOX */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-               <div className="flex gap-4 mb-4">
-                 <img src={users[0].avatar} alt="Seu Perfil" className="w-10 h-10 rounded-full shadow-sm" />
-                 <input 
-                   type="text" 
-                   placeholder="Compartilhe algo com a rede..." 
-                   className="flex-grow bg-gray-50 border border-gray-200 rounded-full px-4 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all"
-                 />
-               </div>
-               <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                  <div className="flex gap-1">
-                    <Tooltip content="Anexar Imagem" direction="top">
-                      <button className="p-2 text-gray-400 hover:text-brand-primary hover:bg-brand-primary/10 rounded-full transition-colors">
-                        <Camera className="w-5 h-5" />
-                      </button>
-                    </Tooltip>
-                    <Tooltip content="Anexar Arquivo" direction="top">
-                      <button className="p-2 text-gray-400 hover:text-brand-primary hover:bg-brand-primary/10 rounded-full transition-colors">
-                        <Paperclip className="w-5 h-5" />
-                      </button>
-                    </Tooltip>
-                  </div>
-                  <button className="bg-brand-primary text-white font-medium text-sm px-5 py-1.5 rounded-full hover:opacity-90 shadow-sm transition-opacity">
-                    Publicar
-                  </button>
-               </div>
-            </div>
-
-            {/* FEED DE POSTS */}
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Feed Recente</h3>
-                <button className="text-sm text-brand-primary font-medium hover:underline flex items-center gap-1">
-                  Filtrar timeline 
-                </button>
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-[var(--shadow-subtle)] p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                <Gift className="w-4 h-4 text-orange-500" />
               </div>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#041433]">Aniversariantes do mês</h3>
+            </div>
+            <div className="space-y-3">
+              {birthdays.map((bday, i) => (
+                <div key={i} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <img src={bday.avatar} alt={bday.name} className="w-8 h-8 rounded-full" />
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-800 leading-tight">{bday.name}</h4>
+                      <p className="text-[9px] uppercase font-bold text-slate-400 tracking-wider">{bday.role}</p>
+                    </div>
+                  </div>
+                  <Tooltip content="Enviar Mensagem">
+                    <button className="text-slate-400 hover:text-orange-500 p-1.5 hover:bg-orange-500/10 rounded-lg transition-colors">
+                      <MessageSquare className="w-3.5 h-3.5" />
+                    </button>
+                  </Tooltip>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
-              {posts.map((post) => {
-                const isLiked = likedPosts.includes(post.id);
-                return (
-                  <motion.div 
-                    key={post.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+        {/* FEED DE POSTS */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-[11px] font-bold text-[#041433] uppercase tracking-[0.2em] flex items-center gap-2">
+              <span className="w-6 h-px bg-orange-500" />
+              Feed Recente
+            </h3>
+            <button className="text-xs text-orange-600 font-semibold hover:underline flex items-center gap-1">
+              Filtrar timeline
+            </button>
+          </div>
+
+          {posts.map((post) => {
+            const isLiked = likedPosts.includes(post.id);
+            return (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-2xl shadow-[var(--shadow-subtle)] border border-slate-100 overflow-hidden hover:shadow-[var(--shadow-hover)] transition-shadow"
+              >
+                {/* Cabeçalho do Post */}
+                <div className="p-5 pb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={post.user.avatar}
+                      alt={post.user.name}
+                      className="w-12 h-12 rounded-full ring-2 ring-orange-500/10 cursor-pointer hover:ring-orange-500/40 transition-all"
+                      onClick={() => setActiveProfile(post.user)}
+                    />
+                    <div>
+                      <h4
+                        className="font-bold text-[#041433] cursor-pointer hover:text-orange-500 transition-colors"
+                        onClick={() => setActiveProfile(post.user)}
+                      >
+                        {post.user.name}
+                      </h4>
+                      <p className="text-xs text-slate-400">{post.time} • {post.user.role}</p>
+                    </div>
+                  </div>
+                  <Tooltip content="Mais Opções">
+                    <button className="text-slate-400 hover:bg-slate-100 p-2 rounded-full transition-colors">
+                      <MoreHorizontal className="w-5 h-5" />
+                    </button>
+                  </Tooltip>
+                </div>
+
+                {/* Corpo do Post */}
+                <div className="p-5 pt-2">
+                  <p className="text-slate-700 leading-relaxed text-[15px] mb-4">
+                    {post.content}
+                  </p>
+                  {post.image && (
+                    <div className="rounded-xl overflow-hidden mb-2 border border-slate-100">
+                      <img src={post.image} alt="Conteúdo da publicação" className="w-full h-auto object-cover max-h-80" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Rodapé - Action Bar */}
+                <div className="px-5 py-3 border-t border-slate-100 bg-slate-50/40 flex items-center gap-6">
+                  <button
+                    onClick={() => toggleLike(post.id)}
+                    className={`flex items-center gap-2 font-semibold text-sm transition-colors ${
+                      isLiked ? 'text-orange-500' : 'text-slate-500 hover:text-[#041433]'
+                    }`}
                   >
-                    {/* Cabeçalho do Post */}
-                    <div className="p-5 pb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <img 
-                          src={post.user.avatar} 
-                          alt={post.user.name} 
-                          className="w-12 h-12 rounded-full shadow-sm cursor-pointer hover:ring-2 hover:ring-brand-primary hover:ring-offset-2 transition-all" 
-                          onClick={() => setActiveProfile(post.user)}
-                        />
-                        <div>
-                          <h4 
-                            className="font-bold text-gray-900 cursor-pointer hover:text-brand-primary transition-colors"
-                            onClick={() => setActiveProfile(post.user)}
-                          >
-                            {post.user.name}
-                          </h4>
-                          <p className="text-xs text-gray-400">{post.time} • {post.user.role}</p>
-                        </div>
-                      </div>
-                      <Tooltip content="Mais Opções">
-                        <button className="text-gray-400 hover:bg-gray-100 p-2 rounded-full transition-colors">
-                          <MoreHorizontal className="w-5 h-5" />
-                        </button>
-                      </Tooltip>
-                    </div>
+                    <motion.div
+                      animate={{ scale: isLiked ? [1, 1.3, 1] : 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Heart className="w-5 h-5" fill={isLiked ? "currentColor" : "none"} />
+                    </motion.div>
+                    {post.likes + (isLiked ? 1 : 0)}
+                  </button>
 
-                    {/* Corpo do Post */}
-                    <div className="p-5 pt-2">
-                      <p className="text-gray-700 leading-relaxed text-[15px] mb-4">
-                        {post.content}
-                      </p>
-                      {post.image && (
-                        <div className="rounded-xl overflow-hidden mb-2 border border-gray-100">
-                          <img src={post.image} alt="Conteúdo da publicação" className="w-full h-auto object-cover max-h-80" />
-                        </div>
-                      )}
-                    </div>
+                  <button
+                    onClick={() => toggleComments(post.id)}
+                    className="flex items-center gap-2 font-semibold text-sm text-slate-500 hover:text-[#041433] transition-colors"
+                  >
+                    <MessageSquare className="w-5 h-5" />
+                    {post.commentsList.length} Comentários
+                  </button>
+                </div>
 
-                    {/* Rodapé - Action Bar */}
-                    <div className="px-5 py-3 border-t border-gray-50 bg-gray-50/50 flex items-center gap-6">
-                      <button 
-                        onClick={() => toggleLike(post.id)}
-                        className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-                          isLiked ? 'text-brand-primary' : 'text-gray-500 hover:text-gray-800'
-                        }`}
-                      >
-                        <motion.div
-                          animate={{ scale: isLiked ? [1, 1.3, 1] : 1 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <Heart className="w-5 h-5" fill={isLiked ? "currentColor" : "none"} />
-                        </motion.div>
-                        {post.likes + (isLiked ? 1 : 0)}
-                      </button>
-
-                      <button 
-                        onClick={() => toggleComments(post.id)}
-                        className="flex items-center gap-2 font-medium text-sm text-gray-500 hover:text-gray-800 transition-colors"
-                      >
-                        <MessageSquare className="w-5 h-5" />
-                        {post.commentsList.length} Comentários
-                      </button>
-                    </div>
-
-                    {/* Comentários */}
-                    <AnimatePresence>
-                      {expandedComments.includes(post.id) && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="px-5 border-t border-gray-100 bg-gray-50/30 overflow-hidden"
-                        >
-                          <div className="py-4 space-y-4">
-                            {post.commentsList.map(comment => (
-                              <div key={comment.id} className="flex gap-3 text-sm">
-                                <img src={comment.user.avatar} alt={comment.user.name} className="w-8 h-8 rounded-full shadow-sm" />
-                                <div className="bg-white border border-gray-100 rounded-xl rounded-tl-sm p-3 flex-grow shadow-sm">
-                                  <div className="flex justify-between items-start mb-1">
-                                    <span className="font-bold text-gray-900">{comment.user.name}</span>
-                                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">{comment.time}</span>
-                                  </div>
-                                  <p className="text-gray-700 leading-relaxed">{comment.text}</p>
-                                </div>
+                {/* Comentários */}
+                <AnimatePresence>
+                  {expandedComments.includes(post.id) && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="px-5 border-t border-slate-100 bg-slate-50/40 overflow-hidden"
+                    >
+                      <div className="py-4 space-y-4">
+                        {post.commentsList.map(comment => (
+                          <div key={comment.id} className="flex gap-3 text-sm">
+                            <img src={comment.user.avatar} alt={comment.user.name} className="w-8 h-8 rounded-full" />
+                            <div className="bg-white border border-slate-100 rounded-xl rounded-tl-sm p-3 flex-grow shadow-sm">
+                              <div className="flex justify-between items-start mb-1">
+                                <span className="font-bold text-[#041433]">{comment.user.name}</span>
+                                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{comment.time}</span>
                               </div>
-                            ))}
-                            
-                            <div className="flex gap-3 mt-4 pt-4 border-t border-gray-100">
-                              <img src={users[0].avatar} alt="Seu Perfil" className="w-8 h-8 rounded-full shadow-sm" />
-                              <div className="flex-grow flex relative">
-                                <input 
-                                  type="text" 
-                                  placeholder="Escreva um comentário..." 
-                                  className="w-full bg-white border border-gray-200 rounded-full pl-4 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary shadow-sm transition-all"
-                                  value={commentInputs[post.id] || ''}
-                                  onChange={(e) => setCommentInputs({...commentInputs, [post.id]: e.target.value})}
-                                  onKeyDown={(e) => e.key === 'Enter' && handleAddComment(post.id)}
-                                />
-                                <div className="absolute right-1 top-1/2 -translate-y-1/2">
-                                  <Tooltip content="Enviar" direction="left">
-                                    <button 
-                                      onClick={() => handleAddComment(post.id)}
-                                      className={`p-1.5 rounded-full transition-colors ${
-                                        commentInputs[post.id]?.trim() ? 'bg-brand-primary text-white hover:bg-brand-primary/90' : 'text-gray-400 bg-gray-100 hover:bg-gray-200'
-                                      }`}
-                                      disabled={!commentInputs[post.id]?.trim()}
-                                    >
-                                      <Send className="w-4 h-4" />
-                                    </button>
-                                  </Tooltip>
-                                </div>
-                              </div>
+                              <p className="text-slate-700 leading-relaxed">{comment.text}</p>
                             </div>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })}
-            </div>
-            
-          </div>
+                        ))}
 
+                        <div className="flex gap-3 mt-4 pt-4 border-t border-slate-100">
+                          <img src={users[0].avatar} alt="Seu Perfil" className="w-8 h-8 rounded-full" />
+                          <div className="flex-grow flex relative">
+                            <input
+                              type="text"
+                              placeholder="Escreva um comentário..."
+                              className="w-full bg-white border border-slate-200 rounded-full pl-4 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 shadow-sm transition-all"
+                              value={commentInputs[post.id] || ''}
+                              onChange={(e) => setCommentInputs({...commentInputs, [post.id]: e.target.value})}
+                              onKeyDown={(e) => e.key === 'Enter' && handleAddComment(post.id)}
+                            />
+                            <div className="absolute right-1 top-1/2 -translate-y-1/2">
+                              <Tooltip content="Enviar" direction="left">
+                                <button
+                                  onClick={() => handleAddComment(post.id)}
+                                  className={`p-1.5 rounded-full transition-colors ${
+                                    commentInputs[post.id]?.trim() ? 'bg-orange-500 text-white hover:bg-orange-600' : 'text-slate-400 bg-slate-100 hover:bg-slate-200'
+                                  }`}
+                                  disabled={!commentInputs[post.id]?.trim()}
+                                >
+                                  <Send className="w-4 h-4" />
+                                </button>
+                              </Tooltip>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
+
       </div>
 
       {/* OVERLAY E MODAL DE PERFIL */}

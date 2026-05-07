@@ -524,6 +524,11 @@ const SocialView = () => {
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
   const [expandedComments, setExpandedComments] = useState<number[]>([]);
   const [commentInputs, setCommentInputs] = useState<Record<number, string>>({});
+  const [connections, setConnections] = useState<number[]>([2]);
+
+  const toggleConnection = (userId: number) => {
+    setConnections(prev => prev.includes(userId) ? prev.filter(id => id !== userId) : [...prev, userId]);
+  };
 
   const toggleLike = (id: number) => {
     if (likedPosts.includes(id)) {
